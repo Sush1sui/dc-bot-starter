@@ -6,6 +6,8 @@ export interface CustomClient extends Client {
   commands: Collection<string, any>;
 }
 
+export let isBotOnline = false;
+
 export const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -22,7 +24,18 @@ client.commands = new Collection();
 loadCommands(client);
 loadEvents(client);
 
-client.login(process.env.bot_token);
+export const startbot = () => {
+  client
+    .login(process.env.bot_token)
+    .then(() => {
+      console.log("Bot is online!");
+      isBotOnline = true;
+    })
+    .catch((error) => {
+      console.error("Failed to log in:", error);
+      isBotOnline = false;
+    });
+};
 
 // Handle unhandled promise rejections
 process.on("unhandledRejection", (error) => {
