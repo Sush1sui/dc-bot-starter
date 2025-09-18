@@ -37,6 +37,7 @@ export const startbot = () => {
     });
 };
 
+
 // Handle unhandled promise rejections
 process.on("unhandledRejection", (error) => {
   console.error("Unhandled promise rejection:", error);
